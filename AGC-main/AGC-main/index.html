@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лицей "Almaty Guard Corps" - Военно-патриотическое образование</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --snow-leopard: #C0C0C0;
+            --dark-charcoal: #222325;
+            --burgundy: #932426;
+            --light-gray: #BFBFC1;
+            --cream: #E4DBCA;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-charcoal);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(34, 35, 37, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logo svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .nav-logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--snow-leopard);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--snow-leopard);
+        }
+
+        .nav-cta {
+            background: linear-gradient(45deg, var(--snow-leopard), var(--cream));
+            color: var(--dark-charcoal);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(192, 192, 192, 0.3);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--snow-leopard);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: var(--dark-charcoal);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: var(--snow-leopard);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--snow-leopard);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--dark-charcoal) 0%, var(--burgundy) 50%, var(--snow-leopard) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23C0C0C0" opacity="0.1" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 20px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: var(--snow-leopard);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, var(--snow-leopard), white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--cream);
+            font-weight: 400;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(45deg, var(--snow-leopard), var(--cream));
+            color: var(--dark-charcoal);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--snow-leopard), var(--cream));
+            color: var(--dark-charcoal);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--snow-leopard);
+            border: 2px solid var(--snow-leopard);
+        }
+
+        .btn-secondary:hover {
+            background: var(--snow-leopard);
+            color: var(--dark-charcoal);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: var(--cream);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--dark-charcoal);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--snow-leopard), var(--burgundy));
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--burgundy);
+            font-weight: 600;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--dark-charcoal);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .cadet-image {
+            text-align: center;
+        }
+
+        .cadet-photo {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            border: 4px solid var(--snow-leopard);
+        }
+
+        .cadet-photo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Director Section */
+        .director {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .director-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .director-photo {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 4px solid var(--snow-leopard);
+        }
+
+        .director-info h3 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--burgundy);
+            font-weight: 700;
+        }
+
+        .director-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--snow-leopard);
+            font-weight: 400;
+        }
+
+        .achievements {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .achievements li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.2rem;
+            color: var(--dark-charcoal);
+            font-weight: 300;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .achievements li::before {
+            content: '⭐';
+            position: absolute;
+            left: 0;
+            color: var(--snow-leopard);
+            font-size: 1.4rem;
+        }
+
+        /* Programs Section */
+        .programs {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--light-gray), var(--cream));
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .program-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-top: 5px solid var(--snow-leopard);
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .program-card h4 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--burgundy);
+            font-weight: 600;
+        }
+
+        .program-list {
+            list-style: none;
+        }
+
+        .program-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: var(--dark-charcoal);
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+
+        .program-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--snow-leopard);
+            font-size: 1rem;
+        }
+
+        /* Clubs Section */
+        .clubs {
+            padding: 100px 0;
+            background: var(--dark-charcoal);
+            color: white;
+        }
+
+        .clubs .section-title {
+            color: var(--snow-leopard);
+        }
+
+        .clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .club-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .club-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--snow-leopard);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .club-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--snow-leopard), var(--cream));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .club-card h4 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--snow-leopard);
+            font-weight: 600;
+        }
+
+        .club-card p {
+            font-size: 1rem;
+            color: var(--light-gray);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .club-motto {
+            font-style: italic;
+            color: var(--cream);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        /* Driving License Section */
+        .driving-license {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--burgundy), var(--dark-charcoal));
+            color: white;
+        }
+
+        .driving-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .driving-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--snow-leopard), var(--cream));
+            color: var(--dark-charcoal);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        .driving-text h2 {
+            font-size: 3.2rem;
+            color: var(--snow-leopard);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .driving-subtitle {
+            font-size: 1.6rem;
+            color: var(--cream);
+            font-weight: 500;
+            margin-bottom: 40px;
+        }
+
+        .driving-benefits ul {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .driving-benefits li {
+            padding: 15px 0;
+            font-size: 1.2rem;
+            color: white;
+            font-weight: 400;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--cream);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--snow-leopard);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--burgundy);
+            min-width: 50px;
+        }
+
+        .contact-details h4 {
+            font-size: 1.4rem;
+            color: var(--dark-charcoal);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            color: var(--dark-charcoal);
+            font-weight: 300;
+        }
+
+        /* Application Form */
+        .application-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--snow-leopard);
+        }
+
+        .application-form h3 {
+            font-size: 2.2rem;
+            color: var(--burgundy);
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--dark-charcoal);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--snow-leopard);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(45deg, var(--snow-leopard), var(--burgundy));
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-charcoal);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.4rem;
+            color: var(--snow-leopard);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--snow-leopard);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+            color: var(--light-gray);
+        }
+
+        /* CTA Sections */
+        .cta-section {
+            background: linear-gradient(135deg, var(--snow-leopard), var(--cream));
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            color: var(--dark-charcoal);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.4rem;
+            color: var(--dark-charcoal);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-grid,
+            .director-grid,
+            .driving-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .driving-text h2 {
+                font-size: 2.4rem;
+            }
+
+            .program-card,
+            .club-card {
+                margin: 0 10px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            h2.section-title{
+                font-size: 1.9rem !important;
+            }
+
+            .programs-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .clubs-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="./AGC_Logo.png" alt="" style="width: 100px; height: auto;">
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#director">Директор</a></li>
+                <li><a href="#programs">Программы</a></li>
+                <li><a href="#clubs">Кружки</a></li>
+                <li><a href="#driving">Водительские права</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            
+            <a href="#contact" class="nav-cta">Поступить</a>
+            
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-close" onclick="toggleMobileMenu()">&times;</button>
+        <a href="#home" onclick="toggleMobileMenu()">Главная</a>
+        <a href="#about" onclick="toggleMobileMenu()">О нас</a>
+        <a href="#director" onclick="toggleMobileMenu()">Директор</a>
+        <a href="#programs" onclick="toggleMobileMenu()">Программы</a>
+        <a href="#clubs" onclick="toggleMobileMenu()">Кружки</a>
+        <a href="#driving" onclick="toggleMobileMenu()">Водительские права</a>
+        <a href="#contact" onclick="toggleMobileMenu()">Контакты</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="./AGC_Logo copy.png" alt="Логотип лицея" style="width: 60%; height: auto;">
+                </div>
+            </div>
+            <h1>ALMATY GUARD CORPS</h1>
+            <p class="hero-subtitle">Элитное военно-патриотическое образование с духом снежного барса</p>
+            <div class="hero-highlight">
+                🚗 ЭКСКЛЮЗИВНО: Выпускной с водительскими правами категории "В"!
+            </div>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Поступить в лицей</a>
+                <a href="tel:+77777864777" class="btn btn-secondary">Позвонить</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title fade-in">О нашем лицее</h2>
+            <div class="about-grid">
+                <div class="about-text fade-in">
+                    <h3>Формируем будущих лидеров</h3>
+                    <p>Лицей "Almaty Guard Corps" - это уникальное образовательное учреждение, которое сочетает высокое качество академического образования с военно-патриотическим воспитанием.</p>
+                    <p>Наши ученики получают не только фундаментальные знания по всем школьным предметам, но и развивают лидерские качества, дисциплину и ответственность.</p>
+                    <p>Мы гордимся нашими выпускниками, которые становятся успешными в различных сферах жизни, сохраняя при этом верность традициям и любовь к Родине.</p>
+                </div>
+                <div class="cadet-image fade-in">
+                    <img src="./cadet.jpeg" alt="Кадет лицея" class="cadet-photo" style="background: linear-gradient(45deg, #C0C0C0, #E4DBCA);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Director Section -->
+    <section id="director" class="director">
+        <div class="container">
+            <h2 class="section-title fade-in">Наш директор</h2>
+            <div class="director-grid">
+                <div class="fade-in">
+                    <img src="./dir.jpeg" alt="Директор лицея" class="director-photo" style="background: linear-gradient(45deg, #222325, #932426);">
+                </div>
+                <div class="director-info fade-in">
+                    <h3>БЕЛДИБЕКОВ Канатбек Ербосынович</h3>
+                    <h4>Директор лицея</h4>
+                    <p><strong>Образование:</strong></p>
+                    <p>• Магистр военного дела — Национальный университет обороны, 2012 г.</p>
+                    <p>• Учитель физической культуры и спорта — Жетысуский государственный университет, 1995 г.</p>
+                    
+                    <p><strong>Опыт работы:</strong></p>
+                    <p>• 28 лет в органах воспитательных структур Вооружённых Сил Республики Казахстан</p>
+                    <p>• Заместитель начальника по воспитательной работе — "Арыстан" (2023-2025)</p>
+                    
+                    <ul class="achievements">
+                        <li>Лидерство и организаторские способности</li>
+                        <li>Стратегическое мышление и дисциплинированность</li>
+                        <li>Ответственность и умение мотивировать коллектив</li>
+                        <li>Опыт работы с молодёжью и педагогическими коллективами</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="programs">
+        <div class="container">
+            <h2 class="section-title fade-in">Образовательные программы</h2>
+            <div class="programs-grid">
+                <div class="program-card fade-in">
+                    <h4>5-7 классы</h4>
+                    <ul class="program-list">
+                        <li>Основы военной подготовки</li>
+                        <li>Строевая и физическая подготовка</li>
+                        <li>История казахстанской армии</li>
+                        <li>Основы первой медицинской помощи</li>
+                        <li>Плавание и лыжный спорт</li>
+                        <li>Этикет и культура поведения</li>
+                    </ul>
+                </div>
+                <div class="program-card fade-in">
+                    <h4>8-9 классы</h4>
+                    <ul class="program-list">
+                        <li>Углубленная военная подготовка</li>
+                        <li>Основы тактики и стратегии</li>
+                        <li>Радиосвязь и сигнализация</li>
+                        <li>Топография и ориентирование</li>
+                        <li>Командные игры и лидерство</li>
+                        <li>Профориентационная работа</li>
+                    </ul>
+                </div>
+                <div class="program-card fade-in">
+                    <h4>10-11 классы</h4>
+                    <ul class="program-list">
+                        <li>Подготовка к военным вузам</li>
+                        <li>Специализированные военные дисциплины</li>
+                        <li>Практические учения и сборы</li>
+                        <li>Проектная деятельность</li>
+                        <li>Подготовка к ЕНТ</li>
+                        <li><strong>Получение водительских прав категории "В"</strong></li>
+                        <li>Выпускной бал кадетов</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clubs Section -->
+    <section id="clubs" class="clubs">
+        <div class="container">
+            <h2 class="section-title fade-in">Кружки и секции</h2>
+            <div class="clubs-grid">
+                <div class="club-card fade-in">
+                    <div class="club-icon">✈️</div>
+                    <h4>Клуб пилотов</h4>
+                    <p class="club-motto">"Готовьтесь к взлету!"</p>
+                    <p>Тренировка на симуляторе полета, научиться управлять дроном, авиасистема и метеоанализ. Подготовка будущих покорителей неба!</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">🥋</div>
+                    <h4>Боевые искусства</h4>
+                    <p class="club-motto">"Сила в дисциплине"</p>
+                    <p>Каратэ, дзюдо, самбо. Развитие физической силы, самодисциплины и навыков самообороны под руководством опытных мастеров.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">🎯</div>
+                    <h4>Стрелковый клуб</h4>
+                    <p class="club-motto">"Точность - вежливость королей"</p>
+                    <p>Пневматическая стрельба, изучение стрелкового оружия. Развитие точности, концентрации и навыков обращения с оружием.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">🎵</div>
+                    <h4>Военный оркестр</h4>
+                    <p class="club-motto">"Музыка объединяет"</p>
+                    <p>Духовые и ударные инструменты. Участие в парадах, торжественных мероприятиях и концертах лицея.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">🎭</div>
+                    <h4>Театральная студия</h4>
+                    <p class="club-motto">"Искусство воспитывает душу"</p>
+                    <p>Драматическое искусство, сценическая речь. Постановка военно-патриотических спектаклей и литературных композиций.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">🏇</div>
+                    <h4>Конный клуб</h4>
+                    <p class="club-motto">"Благородство в движении"</p>
+                    <p>Верховая езда, уход за лошадьми. Развитие координации, ответственности и связи с природой.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">📻</div>
+                    <h4>Радиотехнический клуб</h4>
+                    <p class="club-motto">"Связь - основа команды"</p>
+                    <p>Изучение радиоэлектроники, радиосвязи. Подготовка специалистов в области военных коммуникаций.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">🎨</div>
+                    <h4>Художественная студия</h4>
+                    <p class="club-motto">"Красота спасет мир"</p>
+                    <p>Живопись, графика, военная иллюстрация. Развитие творческих способностей и эстетического воспитания.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">🏊</div>
+                    <h4>Плавательная секция</h4>
+                    <p class="club-motto">"Сила воды"</p>
+                    <p>Спортивное плавание, водное поло, прикладное плавание. Укрепление здоровья и развитие выносливости.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">⛷️</div>
+                    <h4>Лыжная секция</h4>
+                    <p class="club-motto">"Покорители снежных вершин"</p>
+                    <p>Горные и беговые лыжи, сноуборд. Зимние виды спорта для развития координации и силы духа.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">♟️</div>
+                    <h4>Шахматный клуб</h4>
+                    <p class="club-motto">"Мыслить на шаг вперед"</p>
+                    <p>Классические шахматы, военные шахматы. Развитие стратегического мышления и логических способностей.</p>
+                </div>
+                
+                <div class="club-card fade-in">
+                    <div class="club-icon">🌟</div>
+                    <h4>Военно-исторический клуб</h4>
+                    <p class="club-motto">"Помнить прошлое"</p>
+                    <p>Изучение военной истории Казахстана, реконструкция исторических событий и участие в патриотических мероприятиях.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Готовы стать частью элитного лицея?</h2>
+            <p>Присоединяйтесь к нашей семье и откройте путь к успешному будущему!</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Подать заявление</a>
+                <a href="tel:+77777864777" class="btn btn-secondary">Получить консультацию</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Driving License Section -->
+    <section id="driving" class="driving-license">
+        <div class="container">
+            <div class="driving-content">
+                <div class="driving-text fade-in">
+                    <div class="driving-badge">🚗 ЭКСКЛЮЗИВНО</div>
+                    <h2>Выпускной с водительскими правами!</h2>
+                    <p class="driving-subtitle">Получение водительского удостоверения категории "В" по окончании 11 класса</p>
+                    
+                    <div class="driving-benefits">
+                        <h3>Что включено в программу:</h3>
+                        <ul>
+                            <li>✅ Теоретические занятия по ПДД в рамках учебного процесса</li>
+                            <li>✅ Практические занятия на автодроме лицея</li>
+                            <li>✅ Обучение с сертифицированными инструкторами</li>
+                            <li>✅ Современные учебные автомобили</li>
+                            <li>✅ Подготовка к экзаменам в ГАИ</li>
+                            <li>✅ Получение водительского удостоверения вместе с аттестатом</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="driving-visual fade-in">
+                    <img src="./DRIVE.jpg" alt="Обучение вождению в лицее" style="background: linear-gradient(45deg, #C0C0C0, #932426); border-radius: 15px; width: 100%;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Контакты и поступление</h2>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Наш адрес</h4>
+                            <p>г. Алматы, район Талгар<br>ул. [Указать точный адрес]</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4>Телефон</h4>
+                            <p><a href="tel:+77777864777">+7 777 864 7773</a><br>Приёмная комиссия</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@almaty-guard-corps.kz">info@almaty-guard-corps.kz</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div class="contact-details">
+                            <h4>Режим работы</h4>
+                            <p>Пн-Пт: 8:00-18:00<br>Сб: 9:00-15:00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-form fade-in">
+                    <h3>Подать заявление</h3>
+                    <form id="applicationForm">
+                        <div class="form-group">
+                            <label for="parentName">ФИО родителя *</label>
+                            <input type="text" id="parentName" name="parentName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentName">ФИО ученика *</label>
+                            <input type="text" id="studentName" name="studentName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="grade">Класс для поступления *</label>
+                            <select id="grade" name="grade" required>
+                                <option value="">Выберите класс</option>
+                                <option value="5">5 класс</option>
+                                <option value="6">6 класс</option>
+                                <option value="7">7 класс</option>
+                                <option value="8">8 класс</option>
+                                <option value="9">9 класс</option>
+                                <option value="10">10 класс</option>
+                                <option value="11">11 класс</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Телефон *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Дополнительная информация</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Расскажите о ребенке, его интересах, достижениях..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-submit">
+                            <span class="btn-text">Отправить заявление</span>
+                            <span class="btn-loading" style="display: none;">
+                                <span class="loading"></span> Отправка...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>О лицее</h4>
+                    <ul>
+                        <li><a href="#about">Наша миссия</a></li>
+                        <li><a href="#programs">Программы обучения</a></li>
+                        <li><a href="#clubs">Кружки и секции</a></li>
+                        <li><a href="#director">Руководство</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Поступление</h4>
+                    <ul>
+                        <li><a href="#contact">Подать заявление</a></li>
+                        <li><a href="#driving">Водительские права</a></li>
+                        <li><a href="tel:+77777864777">Приёмная комиссия</a></li>
+                        <li><a href="#contact">Документы</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><a href="tel:+77777864777">+7 777 864 7773</a></li>
+                        <li><a href="mailto:info@almaty-guard-corps.kz">info@almaty-guard-corps.kz</a></li>
+                        <li>г. Алматы, район Талгар</li>
+                        <li>Пн-Пт: 8:00-18:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Социальные сети</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">YouTube</a></li>
+                        <li><a href="#">Telegram</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Лицей "Almaty Guard Corps". Все права защищены. | Формируем будущих защитников Казахстана</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(34, 35, 37, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(34, 35, 37, 0.95)';
+            }
+        });
+
+        // Form submission
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btnText = document.querySelector('.btn-text');
+            const btnLoading = document.querySelector('.btn-loading');
+            
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline-flex';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.');
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                this.reset();
+            }, 2000);
+        });
+
+        // Add dynamic effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.program-card, .club-card, .contact-item');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Auto-play animations
+            setInterval(() => {
+                const logo = document.querySelector('.logo');
+                if (logo) {
+                    logo.style.animation = 'none';
+                    setTimeout(() => {
+                        logo.style.animation = 'pulse 2s infinite';
+                    }, 100);
+                }
+            }, 10000);
+        });
+
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.startsWith('7')) {
+                value = '+7 ' + value.slice(1, 4) + ' ' + value.slice(4, 7) + ' ' + value.slice(7, 9) + ' ' + value.slice(9, 11);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
